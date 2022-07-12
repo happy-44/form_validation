@@ -1,0 +1,23 @@
+body{
+    background-color: black;
+    margin-top: 50px;
+    align-items: center;
+
+}
+.text-center{
+    color: white;
+}
+.form-group label{
+    color: white;
+    margin-left: 105px;
+}
+.form-group input{
+    width: 500px;
+    margin-left: 105px;
+}
+.container{
+    margin-top: 20px;
+}
+.form-group h5{
+    margin-left: 105px;
+}

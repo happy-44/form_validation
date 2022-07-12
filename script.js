@@ -60,27 +60,43 @@ $(document).ready(function(){
     }
 
 
-
-
-
-   $('#password').keyup(function(){
+    $('#password').keyup(function(){
         password_validation();
-   });
-
+      });
+    
     function password_validation(){
-        var strongRegex = new RegExp("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
-        var password_val = $('#password').val();
-        if(strongRegex.test(password_val)){
-            $('#passwordvalidation').hide();
+        let passRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+        let passwordVal = $('#password').val();
+        if(passRegex.test(passwordVal)){
+          $('#passwordValidation').hide();
         }
         else{
-            $('#passwordvalidation').show();
-            $('#passwordvalidation').html('Invalid password');
-            $('#passwordvalidation').css('color','red');
-            password_error = false;
-            return false;
-        }    
-    }
+          $('#passwordValidation').show();
+          $('#passwordValidation').html('Invalid Password');
+          $('#passwordValidation').css('color','#ff0000');
+          passwordError = false;
+          return false;
+        }
+      }
+
+//    $('#password').keyup(function(){
+//         password_validation();
+//    });
+
+//     function password_validation(){
+//         var strongRegex = new RegExp("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
+//         var password_val = $('#password').val();
+//         if(strongRegex.test(password_val)){
+//             $('#passwordvalidation').hide();
+//         }
+//         else{
+//             $('#passwordvalidation').show();
+//             $('#passwordvalidation').html('Invalid password');
+//             $('#passwordvalidation').css('color','red');
+//             password_error = false;
+//             return false;
+//         }    
+//     }
 
     
     
