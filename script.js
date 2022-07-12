@@ -4,10 +4,10 @@ $(document).ready(function(){
    $('#passwordvalidation').hide();
    $('#confirmpasswordvalidation').hide();
 
-   var error = false;
-   var email_error = false;
-   var password_error = false;
-   var confirm_password_error = false;
+   var error = true;
+   var email_error = true;
+   var password_error = true;
+   var confirm_password_error = true;
 
    $('#username').keyup(function(){
         username_validation();
@@ -20,8 +20,8 @@ $(document).ready(function(){
             $('#usernamevalidation').show();
             $('#usernamevalidation').html('Username Cannot Be Empty');
             $('#usernamevalidation').css('color','red');
-            error = true;
-            return true;
+            error = false;
+            return false;
         }else{
             $('#usernamevalidation').hide();
         }
@@ -30,8 +30,8 @@ $(document).ready(function(){
             $('#usernamevalidation').show();
             $('#usernamevalidation').html('Invalid Username');
             $('#usernamevalidation').css('color','red');
-            error = true;
-            return true;
+            error = false;
+            return false;
         }else{
             $('#usernamevalidation').hide();
         }
@@ -48,15 +48,14 @@ $(document).ready(function(){
         var emailregex = /^([\-\.0-9a-zA-Z]+)@([\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
         var email_val = $('#email').val();
         if(emailregex.test(email_val)){
-            return false;
-        }else if(email_val.length == ""){
+            $('#emailvalidation').hide();
+        }
+        else{
             $('#emailvalidation').show();
             $('#emailvalidation').html('Invalid Email');
             $('#emailvalidation').css('color','red');
-            password_error = true;
-            return true;
-        }else{
-            $('#passwordvalidation').hide();
+            email_error = false;
+            return false;
         }
     }
 
@@ -69,29 +68,18 @@ $(document).ready(function(){
    });
 
     function password_validation(){
-        var strongRegex = new RegExp("^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#\$%\^&\*])(?=.{8,})");
+        var strongRegex = new RegExp("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
         var password_val = $('#password').val();
         if(strongRegex.test(password_val)){
-            return false;
-        }else if(password_val.length == ""){
-            $('#passwordvalidation').show();
-            $('#passwordvalidation').html('password length must be atleast 8');
-            $('#passwordvalidation').css('color','red');
-            password_error = true;
-            return true;
-        }else{
             $('#passwordvalidation').hide();
         }
-
-        if(password_val.length <= 6){
+        else{
             $('#passwordvalidation').show();
             $('#passwordvalidation').html('Invalid password');
             $('#passwordvalidation').css('color','red');
-            password_error = true;
-            return true;
-        }else{
-            $('#passwordvalidation').hide();
-        }
+            password_error = false;
+            return false;
+        }    
     }
 
     
@@ -106,10 +94,10 @@ $(document).ready(function(){
 
         if(password_val != confirm_password_val){
             $('#confirmpasswordvalidation').show();
-            $('#passwordvalidation').html('password did not match');
-            $('#passwordvalidation').css('color','red');
-            confirm_password_error = true;
-            return true;
+            $('#confirmpasswordvalidation').html('password did not match');
+            $('#confirmpasswordvalidation').css('color','red');
+            confirm_password_error = false;
+            return false;
         }else{
             $('#confirmpasswordvalidation').hide();
         }
@@ -117,13 +105,14 @@ $(document).ready(function(){
 
     $('#submitvalidation').click(function(){
        username_validation();
+       email_validation();
        password_validation();
        confirm_password_validation();
 
-       if(error == false && password_error == false && confirm_password_error == false){
-        return false;
-       }else{
+       if(error == true && email_password == true && password_error == true && confirm_password_error == true){
         return true;
+       }else{
+        return false;
        }
     });
-})
+});
